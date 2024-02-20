@@ -9,9 +9,12 @@ else
 fi
 
 #Check if wp-cli is installed or not
-WP_CLI=echo `wp --version`
-
-if [[ "$WP_CLI" != "WP-CLI x\.x\.x" ]]; then
+wp --version
+if [[ $? -eq 0 ]]; then
+    echo "WP-CLI Installed."
+else
+    echo "WP-CLI is not installed!"
+    echo "Installing WP-CLI ...."
     curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
     php wp-cli.phar --info
     chmod +x wp-cli.phar
